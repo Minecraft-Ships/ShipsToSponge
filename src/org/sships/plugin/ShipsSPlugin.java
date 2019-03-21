@@ -7,7 +7,7 @@ import java.io.File;
 public class ShipsSPlugin extends ShipsPlugin {
     @Override
     public File getShipsConigFolder() {
-        return new File("configuration/Ships/");
+        return new File("config/Ships/");
     }
 
     @Override
@@ -17,6 +17,6 @@ public class ShipsSPlugin extends ShipsPlugin {
 
     @Override
     public Object getSpongeLauncher() {
-        return null;
+        return ShipsMain.getPlugin();
     }
 }
