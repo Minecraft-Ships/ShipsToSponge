@@ -28,8 +28,15 @@ public class ShipsMain {
 
     @Listener
     public void onEnable(GameStartedServerEvent event){
-        ShipsSPlugin plugin = new ShipsSPlugin();
-        plugin.getLoadedMessages();
+        try {
+            ShipsSPlugin plugin = new ShipsSPlugin();
+            plugin.getLoadedMessages();
+        }catch (ExceptionInInitializerError e){
+            System.out.println("--------------");
+            e.getException().printStackTrace();
+        }catch (Throwable t){
+            t.printStackTrace();
+        }
     }
 
     public static ShipsMain getPlugin(){
