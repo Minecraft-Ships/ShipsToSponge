@@ -1,10 +1,12 @@
 package org.sships.plugin;
 
 import org.ships.implementation.sponge.CoreToSponge;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.sships.plugin.cmd.ShipsTestCommand;
 
 @Plugin(id = ShipsMain.PLUGIN_ID, name = ShipsMain.PLUGIN_NAME, description = ShipsMain.PLUGIN_DESCRIPTION, version = ShipsMain.PLUGIN_VERSION)
 public class ShipsMain {
@@ -22,6 +24,7 @@ public class ShipsMain {
 
     @Listener
     public void onInit(GameStartingServerEvent event){
+        Sponge.getCommandManager().register(this, ShipsTestCommand.createCommand(), "shipstest");
         new CoreToSponge(this);
 
     }
