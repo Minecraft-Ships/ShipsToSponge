@@ -35,7 +35,6 @@ public class ShipsMain {
             ShipsSPlugin plugin = new ShipsSPlugin();
             plugin.getLoadedMessages();
         }catch (ExceptionInInitializerError e){
-            System.out.println("--------------");
             e.getException().printStackTrace();
         }catch (Throwable t){
             t.printStackTrace();
