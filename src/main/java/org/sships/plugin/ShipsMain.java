@@ -33,6 +33,8 @@ public class ShipsMain {
     public void onEnable(GameStartedServerEvent event){
         try {
             ShipsSPlugin plugin = new ShipsSPlugin();
+            plugin.loadCustomShipType();
+            plugin.loadVessels();
             plugin.getLoadedMessages();
         }catch (ExceptionInInitializerError e){
             e.getException().printStackTrace();

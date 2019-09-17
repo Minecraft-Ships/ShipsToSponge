@@ -18,14 +18,14 @@ public class ShipsTestCommand {
 
         @Override
         public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
-            File file = new File("ShipsTest/Blocks.txt");
+            File file = new File("ShipsTest/Items.txt");
             file.getParentFile().mkdirs();
             try {
                 file.createNewFile();
                 FileWriter writer = new FileWriter(file);
-                Sponge.getRegistry().getAllOf(org.spongepowered.api.block.BlockType.class).stream().forEach(bt -> {
+                Sponge.getRegistry().getAllOf(org.spongepowered.api.item.ItemType.class).stream().forEach(it -> {
                     try {
-                        writer.write("public static final Optional<BlockType> " + bt.getName().substring(10).toUpperCase() + " = CorePlugin.getPlatform().getBlockType(\"" + bt.getId() + "\");\n");
+                        writer.write("public static final Optional<BlockType> " + it.getId().substring(10).toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.getId() + "\"));\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
