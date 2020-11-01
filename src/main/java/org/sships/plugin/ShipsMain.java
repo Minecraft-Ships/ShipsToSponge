@@ -1,14 +1,16 @@
 package org.sships.plugin;
 
+import com.google.inject.Inject;
 import org.ships.implementation.sponge.CoreToSponge;
-import org.spongepowered.api.Sponge;
-import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.game.state.GameStartedServerEvent;
-import org.spongepowered.api.event.game.state.GameStartingServerEvent;
-import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.Server;
+import org.spongepowered.api.command.Command;
+import org.spongepowered.api.event.lifecycle.RegisterCommandEvent;
+import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
+import org.spongepowered.plugin.PluginContainer;
+import org.spongepowered.plugin.jvm.Plugin;
 import org.sships.plugin.cmd.ShipsTestCommand;
 
-@Plugin(id = ShipsMain.PLUGIN_ID, name = ShipsMain.PLUGIN_NAME, description = ShipsMain.PLUGIN_DESCRIPTION, version = ShipsMain.PLUGIN_VERSION)
+@Plugin(value = ShipsMain.PLUGIN_ID)
 public class ShipsMain {
 
     public static final String PLUGIN_ID = "ships";
@@ -17,20 +19,20 @@ public class ShipsMain {
     public static final String PLUGIN_VERSION = "6.0.0.0";
 
     private static ShipsMain plugin;
+    private final PluginContainer container;
 
-    public ShipsMain(){
+    @Inject
+    public ShipsMain(PluginContainer container){
         plugin = this;
+        this.container = container;
     }
 
-    @Listener
-    public void onInit(GameStartingServerEvent event){
-        Sponge.getCommandManager().register(this, ShipsTestCommand.createCommand(), "shipstest");
-        new CoreToSponge(this);
-
+    public void onRegisterCommand(RegisterCommandEvent<Command.Parameterized> event){
+        event.register(this.container, ShipsTestCommand.createCommand(), "shipstest");
     }
 
-    @Listener
-    public void onEnable(GameStartedServerEvent event){
+    public void onEngineEvent(StartedEngineEvent<Server> event){
+        new CoreToSponge(this.container);
         try {
             ShipsSPlugin plugin = new ShipsSPlugin();
             plugin.loadCustomShipType();

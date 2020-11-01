@@ -1,12 +1,12 @@
 package org.sships.plugin.cmd;
 
+import org.core.source.command.CommandSource;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.command.CommandException;
+import org.spongepowered.api.command.Command;
+import org.spongepowered.api.command.CommandExecutor;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.CommandSource;
-import org.spongepowered.api.command.args.CommandContext;
-import org.spongepowered.api.command.spec.CommandExecutor;
-import org.spongepowered.api.command.spec.CommandSpec;
+import org.spongepowered.api.command.exception.CommandException;
+import org.spongepowered.api.command.parameter.CommandContext;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,15 +17,15 @@ public class ShipsTestCommand {
     public static class CreateBlockTypeList implements CommandExecutor {
 
         @Override
-        public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        public CommandResult execute(CommandContext context) throws CommandException {
             File file = new File("ShipsTest/Items.txt");
             file.getParentFile().mkdirs();
             try {
                 file.createNewFile();
                 FileWriter writer = new FileWriter(file);
-                Sponge.getRegistry().getAllOf(org.spongepowered.api.item.ItemType.class).stream().forEach(it -> {
+                Sponge.getRegistry().getCatalogRegistry().streamAllOf(org.spongepowered.api.item.ItemType.class).forEach(it -> {
                     try {
-                        writer.write("public static final Optional<BlockType> " + it.getId().substring(10).toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.getId() + "\"));\n");
+                        writer.write("public static final Optional<BlockType> " + it.getKey().getValue().toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.getKey().asString() + "\"));\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -38,7 +38,7 @@ public class ShipsTestCommand {
         }
     }
 
-    public static CommandSpec createCommand(){
-        return CommandSpec.builder().executor(new CreateBlockTypeList()).build();
+    public static Command.Parameterized createCommand(){
+        return Command.builder().setExecutor(new CreateBlockTypeList()).build();
     }
 }
