@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    {
+      "loader": "java_plain",
+      "id": "ships",
+      "name": "Ships",
+      "version": "6.0.0.0",
+      "main-class": "org.sships.plugin.ShipsMain",
+      "description": "Move structures in a single click",
+      "dependencies": [
+        {
+          "id": "spongeapi",
+          "version": "8.0.0"
+        }
+      ],
+      "extra": {}
+    }
+  ]
+}
