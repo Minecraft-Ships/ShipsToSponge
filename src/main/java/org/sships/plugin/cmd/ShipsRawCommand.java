@@ -11,13 +11,14 @@ import org.ships.implementation.sponge.platform.SpongePlatform;
 import org.spongepowered.api.SystemSubject;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandCause;
+import org.spongepowered.api.command.CommandCompletion;
 import org.spongepowered.api.command.CommandResult;
-import org.spongepowered.api.command.exception.CommandException;
 import org.spongepowered.api.command.parameter.ArgumentReader;
 import org.spongepowered.api.entity.Entity;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ShipsRawCommand implements Command.Raw {
 
@@ -39,7 +40,7 @@ public class ShipsRawCommand implements Command.Raw {
     }
 
     @Override
-    public CommandResult process(CommandCause cause, ArgumentReader.Mutable arguments) throws CommandException {
+    public CommandResult process(CommandCause cause, ArgumentReader.Mutable arguments) {
         String[] args = arguments.input().split("/");
         Audience audience = cause.audience();
         CommandSource source = getSource(audience);
@@ -53,12 +54,12 @@ public class ShipsRawCommand implements Command.Raw {
     }
 
     @Override
-    public List<String> suggestions(CommandCause cause, ArgumentReader.Mutable arguments) throws CommandException {
+    public List<CommandCompletion> complete(CommandCause cause, ArgumentReader.Mutable arguments) {
         String[] args = arguments.input().split("/");
         Audience audience = cause.audience();
         SpongePlatform platform = ((SpongePlatform) CorePlugin.getPlatform());
         CommandSource source = getSource(audience);
-        return this.launcher.tab(source, args);
+        return this.launcher.tab(source, args).stream().map(CommandCompletion::of).collect(Collectors.toList());
     }
 
     @Override
