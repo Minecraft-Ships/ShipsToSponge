@@ -20,22 +20,35 @@ repositories {
 jar {
     dependsOn(':CoreToSponge:jar')
     dependsOn(':ShipsForCore:jar')
-
-    from {
-        configurations.runtimeClasspath.collect {
-            if (it.path.contains(".m2")) {
-                return
-            }
-            return it.isDirectory() ? it : zipTree(it)
-        }
-    }
 }
 
 dependencies {
-    implementation project(":ShipsCore")
-    implementation project(":CoreToSponge")
-    implementation project(":ShipsForCore")
+    api project(":ShipsCore")
+    api project(":CoreToSponge")
+    api project(":ShipsForCore")
     compileOnly 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
+}
+
+tasks.register("buildPlugin", Jar) {
+    def path = project.rootDir.path + "\\build\\"
+    file(path).mkdirs()
+    archiveClassifier = 'uber'
+    archiveFileName = 'ShipsSponge.jar'
+    destinationDirectory = file(path)
+
+
+    from sourceSets.main.output
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll {
+            it.name.endsWith('jar') && !it.name.contains("junit") && !it.name.contains("hamcrest")
+        }.collect {
+            zipTree(it).matching {
+                exclude "*.txt"
+            }
+        }
+    }
+    println("Creating file in '" + path + "ShipsSponge.jar'")
 }
 
 group = 'org.ships'
