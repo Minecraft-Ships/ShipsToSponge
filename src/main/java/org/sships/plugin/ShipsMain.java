@@ -25,11 +25,16 @@ public class ShipsMain {
     private PluginContainer container;
     private ShipsSPlugin ships;
 
+    public PluginContainer getContainer(){
+        return this.container;
+    }
+
     @Listener
     public void onConstruct(ConstructPluginEvent event) {
         plugin = this;
         this.container = event.plugin();
         this.ships = new ShipsSPlugin();
+        this.ships.registerPlugin();
 
     }
 
@@ -48,6 +53,7 @@ public class ShipsMain {
     @Listener
     public void onEngineEvent(StartedEngineEvent<Server> event) {
         new CoreToSponge(this.container);
+        this.ships.registerReady();
 
         try {
             this.ships.loadCustomShipType();
