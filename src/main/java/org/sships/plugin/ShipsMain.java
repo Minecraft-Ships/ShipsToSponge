@@ -57,6 +57,7 @@ public class ShipsMain {
 
         try {
             this.ships.loadCustomShipType();
+            this.ships.loadVesselTypeFlagData();
             this.ships.loadVessels();
             this.ships.getLoadedMessages();
         } catch (ExceptionInInitializerError e) {
