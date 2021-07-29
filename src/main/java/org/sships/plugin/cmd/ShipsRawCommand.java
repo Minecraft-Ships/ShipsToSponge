@@ -4,6 +4,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.core.CorePlugin;
+import org.core.adventureText.format.NamedTextColours;
 import org.core.command.CommandLauncher;
 import org.core.exceptions.NotEnoughArguments;
 import org.core.source.command.CommandSource;
@@ -46,10 +47,9 @@ public class ShipsRawCommand implements Command.Raw {
         CommandSource source = getSource(audience);
         try {
             boolean result = this.launcher.run(source, args);
-            return result ? CommandResult.success() : CommandResult.empty();
+            return result ? CommandResult.success() : CommandResult.error(Component.text(this.launcher.getUsage(source)).color(NamedTextColor.RED));
         } catch (NotEnoughArguments notEnoughArguments) {
-            audience.sendMessage(Component.text("Not enough arguments").color(NamedTextColor.RED));
-            return CommandResult.empty();
+            return CommandResult.error(Component.text("Not enough arguments").color(NamedTextColor.RED));
         }
     }
 
