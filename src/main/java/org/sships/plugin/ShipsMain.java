@@ -9,7 +9,7 @@ import org.spongepowered.api.event.lifecycle.ConstructPluginEvent;
 import org.spongepowered.api.event.lifecycle.RegisterCommandEvent;
 import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
 import org.spongepowered.plugin.PluginContainer;
-import org.spongepowered.plugin.jvm.Plugin;
+import org.spongepowered.plugin.builtin.jvm.Plugin;
 import org.sships.plugin.cmd.ShipsRawCommand;
 import org.sships.plugin.cmd.ShipsTestCommand;
 
@@ -25,7 +25,7 @@ public class ShipsMain {
     private PluginContainer container;
     private ShipsSPlugin ships;
 
-    public PluginContainer getContainer(){
+    public PluginContainer getContainer() {
         return this.container;
     }
 
