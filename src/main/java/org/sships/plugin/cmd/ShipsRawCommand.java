@@ -3,8 +3,7 @@ package org.sships.plugin.cmd;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.core.CorePlugin;
-import org.core.adventureText.format.NamedTextColours;
+import org.core.TranslateCore;
 import org.core.command.CommandLauncher;
 import org.core.exceptions.NotEnoughArguments;
 import org.core.source.command.CommandSource;
@@ -30,11 +29,11 @@ public class ShipsRawCommand implements Command.Raw {
     }
 
     private CommandSource getSource(Object audience) {
-        SpongePlatform platform = ((SpongePlatform) CorePlugin.getPlatform());
+        SpongePlatform platform = ((SpongePlatform) TranslateCore.getPlatform());
         if (audience instanceof Entity) {
             return (CommandSource) platform.createEntityInstance((Entity) audience);
         } else if (audience instanceof SystemSubject) {
-            return CorePlugin.getConsole();
+            return TranslateCore.getConsole();
         } else {
             throw new IllegalStateException("Unknown conversion from " + audience.toString());
         }
@@ -57,7 +56,7 @@ public class ShipsRawCommand implements Command.Raw {
     public List<CommandCompletion> complete(CommandCause cause, ArgumentReader.Mutable arguments) {
         String[] args = arguments.input().split("/");
         Audience audience = cause.audience();
-        SpongePlatform platform = ((SpongePlatform) CorePlugin.getPlatform());
+        SpongePlatform platform = ((SpongePlatform) TranslateCore.getPlatform());
         CommandSource source = getSource(audience);
         return this.launcher.tab(source, args).stream().map(CommandCompletion::of).collect(Collectors.toList());
     }

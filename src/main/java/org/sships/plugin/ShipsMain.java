@@ -46,14 +46,14 @@ public class ShipsMain {
     @Listener
     public void onRegisterCompatibleCommands(RegisterCommandEvent<Command.Raw> event) {
         CommandRegister cmdReg = new CommandRegister();
-        this.ships.registerCommands(cmdReg);
+        this.ships.onRegisterCommands(cmdReg);
         cmdReg.getCommands().forEach(command -> event.register(this.container, new ShipsRawCommand(command), command.getName()));
     }
 
     @Listener
     public void onEngineEvent(StartedEngineEvent<Server> event) {
         new CoreToSponge(this.container);
-        this.ships.registerReady();
+        this.ships.onCoreReady();
 
         try {
             this.ships.loadCustomShipType();
