@@ -34,7 +34,7 @@ public class ShipsMain {
         plugin = this;
         this.container = event.plugin();
         this.ships = new ShipsSPlugin();
-        this.ships.registerPlugin();
+        this.ships.onConstruct(this);
 
     }
 

@@ -23,7 +23,7 @@ jar {
 }
 
 dependencies {
-    api project(":ShipsCore")
+    api project(":TranslateCore")
     api project(":CoreToSponge")
     api project(":ShipsForCore")
     compileOnly 'org.spongepowered:spongeapi:8.0.0-SNAPSHOT'
