@@ -1,7 +1,7 @@
 package org.sships.plugin;
 
 import org.core.command.CommandRegister;
-import org.ships.implementation.sponge.CoreToSponge;
+import org.core.implementation.sponge.CoreToSponge;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.event.Listener;

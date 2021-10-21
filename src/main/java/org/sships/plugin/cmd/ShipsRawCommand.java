@@ -7,7 +7,7 @@ import org.core.TranslateCore;
 import org.core.command.CommandLauncher;
 import org.core.exceptions.NotEnoughArguments;
 import org.core.source.command.CommandSource;
-import org.ships.implementation.sponge.platform.SpongePlatform;
+import org.core.implementation.sponge.platform.SpongePlatform;
 import org.spongepowered.api.SystemSubject;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandCause;
