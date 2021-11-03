@@ -10,7 +10,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ShipsTestCommand {
+@Deprecated
+public final class ShipsTestCommand {
 
     public static class CreateBlockTypeList implements CommandExecutor {
 
@@ -35,6 +36,10 @@ public class ShipsTestCommand {
             }
             return CommandResult.success();
         }
+    }
+
+    private ShipsTestCommand() {
+        throw new RuntimeException("Should not be used");
     }
 
     public static Command.Parameterized createCommand() {

@@ -43,7 +43,7 @@ public class ShipsRawCommand implements Command.Raw {
     public CommandResult process(CommandCause cause, ArgumentReader.Mutable arguments) {
         String[] args = arguments.input().split("/");
         Audience audience = cause.audience();
-        CommandSource source = getSource(audience);
+        CommandSource source = this.getSource(audience);
         try {
             boolean result = this.launcher.run(source, args);
             return result ? CommandResult.success() : CommandResult.error(Component.text(this.launcher.getUsage(source)).color(NamedTextColor.RED));
@@ -57,13 +57,13 @@ public class ShipsRawCommand implements Command.Raw {
         String[] args = arguments.input().split("/");
         Audience audience = cause.audience();
         SpongePlatform platform = ((SpongePlatform) TranslateCore.getPlatform());
-        CommandSource source = getSource(audience);
+        CommandSource source = this.getSource(audience);
         return this.launcher.tab(source, args).stream().map(CommandCompletion::of).collect(Collectors.toList());
     }
 
     @Override
     public boolean canExecute(CommandCause cause) {
-        return this.launcher.hasPermission(getSource(cause.subject()));
+        return this.launcher.hasPermission(this.getSource(cause.subject()));
     }
 
     @Override
@@ -78,6 +78,6 @@ public class ShipsRawCommand implements Command.Raw {
 
     @Override
     public Component usage(CommandCause cause) {
-        return Component.text(this.launcher.getUsage(getSource(cause.audience()))).color(NamedTextColor.WHITE);
+        return Component.text(this.launcher.getUsage(this.getSource(cause.audience()))).color(NamedTextColor.WHITE);
     }
 }

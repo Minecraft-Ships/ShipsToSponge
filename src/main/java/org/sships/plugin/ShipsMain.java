@@ -39,12 +39,12 @@ public class ShipsMain {
     }
 
     @Listener
-    public void onRegisterCommand(RegisterCommandEvent<Command.Parameterized> event) {
+    public void onRegisterCommand(RegisterCommandEvent<? super Command.Parameterized> event) {
         event.register(this.container, ShipsTestCommand.createCommand(), "shipstest");
     }
 
     @Listener
-    public void onRegisterCompatibleCommands(RegisterCommandEvent<Command.Raw> event) {
+    public void onRegisterCompatibleCommands(RegisterCommandEvent<? super Command.Raw> event) {
         CommandRegister cmdReg = new CommandRegister();
         this.ships.onRegisterCommands(cmdReg);
         cmdReg.getCommands().forEach(command -> event.register(this.container, new ShipsRawCommand(command), command.getName()));
