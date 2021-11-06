@@ -25,7 +25,7 @@ public final class ShipsTestCommand {
                 FileWriter writer = new FileWriter(file);
                 RegistryTypes.ITEM_TYPE.get().stream().forEach(it -> {
                     try {
-                        writer.write("public static final Optional<BlockType> " + it.key(RegistryTypes.ITEM_TYPE).value().toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.key(RegistryTypes.ITEM_TYPE).asString() + "\"));" + File.separator);
+                        writer.write("public static final Optional<BlockType> " + it.key(RegistryTypes.ITEM_TYPE).value().toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.key(RegistryTypes.ITEM_TYPE).asString() + "\"));" + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
