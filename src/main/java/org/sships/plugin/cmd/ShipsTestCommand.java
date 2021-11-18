@@ -17,7 +17,7 @@ public final class ShipsTestCommand {
 
         @Override
         public CommandResult execute(CommandContext context) {
-            File file = new File("ShipsTest" + File.pathSeparatorChar + "Items.txt");
+            File file = new File("ShipsTest/Items.txt");
 
             file.getParentFile().mkdirs();
             try {
