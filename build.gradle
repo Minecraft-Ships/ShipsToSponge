@@ -54,6 +54,6 @@ tasks.register("buildPlugin", Jar) {
 group = 'org.ships'
 version = '1.0-SNAPSHOT'
 description = 'ShipsToSponge'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_16
 
 
