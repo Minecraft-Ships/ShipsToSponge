@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-@Deprecated
+@Deprecated(forRemoval = true)
 public final class ShipsTestCommand {
 
     public static class CreateBlockTypeList implements CommandExecutor {
