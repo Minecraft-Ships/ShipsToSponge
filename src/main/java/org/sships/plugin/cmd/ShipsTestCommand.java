@@ -13,6 +13,14 @@ import java.io.IOException;
 @Deprecated(forRemoval = true)
 public final class ShipsTestCommand {
 
+    private ShipsTestCommand() {
+        throw new RuntimeException("Should not be used");
+    }
+
+    public static Command.Parameterized createCommand() {
+        return Command.builder().executor(new CreateBlockTypeList()).build();
+    }
+
     public static class CreateBlockTypeList implements CommandExecutor {
 
         @Override
@@ -25,7 +33,10 @@ public final class ShipsTestCommand {
                 FileWriter writer = new FileWriter(file);
                 RegistryTypes.ITEM_TYPE.get().stream().forEach(it -> {
                     try {
-                        writer.write("public static final Optional<BlockType> " + it.key(RegistryTypes.ITEM_TYPE).value().toUpperCase() + " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" + it.key(RegistryTypes.ITEM_TYPE).asString() + "\"));" + "\n");
+                        writer.write("public static final Optional<BlockType> " +
+                                it.key(RegistryTypes.ITEM_TYPE).value().toUpperCase() +
+                                " = CorePlugin.getPlatform().get(new ItemTypes1V12(\"" +
+                                it.key(RegistryTypes.ITEM_TYPE).asString() + "\"));" + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -36,13 +47,5 @@ public final class ShipsTestCommand {
             }
             return CommandResult.success();
         }
-    }
-
-    private ShipsTestCommand() {
-        throw new RuntimeException("Should not be used");
-    }
-
-    public static Command.Parameterized createCommand() {
-        return Command.builder().executor(new CreateBlockTypeList()).build();
     }
 }

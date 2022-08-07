@@ -6,8 +6,8 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.core.TranslateCore;
 import org.core.command.CommandLauncher;
 import org.core.exceptions.NotEnoughArguments;
-import org.core.source.command.CommandSource;
 import org.core.implementation.sponge.platform.SpongePlatform;
+import org.core.source.command.CommandSource;
 import org.spongepowered.api.SystemSubject;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.command.CommandCause;
@@ -46,7 +46,8 @@ public class ShipsRawCommand implements Command.Raw {
         CommandSource source = this.getSource(audience);
         try {
             boolean result = this.launcher.run(source, args);
-            return result ? CommandResult.success() : CommandResult.error(Component.text(this.launcher.getUsage(source)).color(NamedTextColor.RED));
+            return result ? CommandResult.success() : CommandResult.error(
+                    Component.text(this.launcher.getUsage(source)).color(NamedTextColor.RED));
         } catch (NotEnoughArguments notEnoughArguments) {
             return CommandResult.error(Component.text("Not enough arguments").color(NamedTextColor.RED));
         }
