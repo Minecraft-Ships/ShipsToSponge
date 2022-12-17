@@ -11,9 +11,8 @@ import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
 import org.spongepowered.plugin.PluginContainer;
 import org.spongepowered.plugin.builtin.jvm.Plugin;
 import org.sships.plugin.cmd.ShipsRawCommand;
-import org.sships.plugin.cmd.ShipsTestCommand;
 
-@Plugin(value = ShipsMain.PLUGIN_ID)
+@Plugin(ShipsMain.PLUGIN_ID)
 public class ShipsMain {
 
     public static final String PLUGIN_ID = "ships";
@@ -39,11 +38,6 @@ public class ShipsMain {
         this.container = event.plugin();
         this.ships = new ShipsSPlugin();
         this.ships.onConstruct(this);
-    }
-
-    @Listener
-    public void onRegisterCommand(RegisterCommandEvent<? super Command.Parameterized> event) {
-        event.register(this.container, ShipsTestCommand.createCommand(), "shipstest");
     }
 
     @Listener
