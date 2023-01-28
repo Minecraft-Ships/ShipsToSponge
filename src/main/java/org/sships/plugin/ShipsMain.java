@@ -1,8 +1,13 @@
 package org.sships.plugin;
 
+import com.google.inject.Inject;
+import org.apache.logging.log4j.Logger;
+import org.core.TranslateCore;
 import org.core.command.CommandRegister;
 import org.core.implementation.sponge.CoreToSponge;
+import org.core.implementation.sponge.platform.SLogger;
 import org.spongepowered.api.Server;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.command.Command;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.lifecycle.ConstructPluginEvent;
@@ -21,8 +26,16 @@ public class ShipsMain {
     public static final String PLUGIN_VERSION = "6.0.0.0";
 
     private static ShipsMain plugin;
-    private PluginContainer container;
+    private final PluginContainer container;
+    private final SLogger logger;
     private ShipsSPlugin ships;
+
+    @Inject
+    public ShipsMain(PluginContainer container, Logger logger) {
+        this.container = container;
+        this.logger = new SLogger(logger);
+
+    }
 
     public static ShipsMain getPlugin() {
         return plugin;
@@ -35,9 +48,7 @@ public class ShipsMain {
     @Listener
     public void onConstruct(ConstructPluginEvent event) {
         plugin = this;
-        this.container = event.plugin();
         this.ships = new ShipsSPlugin();
-        this.ships.onConstruct(this);
     }
 
     @Listener
@@ -52,17 +63,18 @@ public class ShipsMain {
     @Listener
     public void onEngineEvent(StartedEngineEvent<Server> event) {
         new CoreToSponge(this.container);
+        this.ships.onConstruct(this, this.logger);
         this.ships.onCoreReady();
+    }
 
-        try {
-            this.ships.loadCustomShipType();
-            this.ships.loadVesselTypeFlagData();
-            this.ships.loadVessels();
-            this.ships.getLoadedMessages();
-        } catch (ExceptionInInitializerError e) {
-            e.getException().printStackTrace();
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+    @Listener
+    public void onServerLoaded(StartedEngineEvent<Server> event) {
+        Sponge.server().scheduler().executor(this.container).submit(() -> {
+            if (!TranslateCore.CoreImplementation.hasStarted()) {
+                this.onServerLoaded(event);
+                return;
+            }
+            this.ships.onCoreFinishedInit();
+        });
     }
 }

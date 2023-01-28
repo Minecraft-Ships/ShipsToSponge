@@ -1,0 +1,35 @@
+{
+  "loader": {
+    "name": "java_plain",
+    "version": "1.0"
+  },
+  "license": "MIT",
+  "global": {
+    "version": "8.0.0",
+    "links": {
+      "homepage": "https://www.spongepowered.org",
+      "source": "https://www.spongepowered.org/source",
+      "issues": "https://www.spongepowered.org/issues"
+    },
+    "contributors": [
+      {
+        "name": "mosemister",
+        "description": "Lead Developer"
+      }
+    ],
+    "dependencies": [
+      {
+        "id": "spongeapi",
+        "version": "8.0.0"
+      }
+    ]
+  },
+  "plugins": [
+    {
+      "id": "ships",
+      "name": "Ships",
+      "entrypoint": "org.sships.plugin.ShipsMain",
+      "description": "Manages the test plugins"
+    }
+  ]
+}
