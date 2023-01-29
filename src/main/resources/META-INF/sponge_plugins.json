@@ -5,7 +5,7 @@
   },
   "license": "MIT",
   "global": {
-    "version": "8.0.0",
+    "version": "6.0.0.0 -s PreAlpha 0.0.1",
     "links": {
       "homepage": "https://www.spongepowered.org",
       "source": "https://www.spongepowered.org/source",
