@@ -18,6 +18,7 @@ repositories {
 }
 
 tasks.register("plugin", Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     def path = project.buildDir.path + "/build/"
     file(path).mkdirs()
     archiveClassifier = 'uber'
@@ -49,5 +50,3 @@ group = 'org.ships'
 version = '1.0-SNAPSHOT'
 description = 'ShipsToSponge'
 java.sourceCompatibility = JavaVersion.VERSION_16
-
-
